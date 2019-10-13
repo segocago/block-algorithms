@@ -1,0 +1,9 @@
+.block-sequence-container {
+    
+    border-style: solid;   
+    border-width: 2px;
+    border-radius: 10px;
+    background-color: #66ffff;
+    display: inline-block;    
+    padding-right: 40px;
+}

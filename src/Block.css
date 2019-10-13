@@ -1,0 +1,14 @@
+ul {
+    list-style-type: none;
+}
+
+.block-container {
+    display: inline-block; 
+    border-style: solid;   
+    border-width: 2px;
+    border-color: black;    
+    background-color: #a3a3c2;
+    width: 100%; 
+    margin-bottom: 10px;
+    
+}
