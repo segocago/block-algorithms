@@ -6,13 +6,10 @@ import clsx from "clsx";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Fab from '@material-ui/core/Fab';
-
-
 import { withStyles } from '@material-ui/core/styles';
 //import "./Block.css";
 
@@ -46,9 +43,8 @@ class Block extends React.Component {
     constructor(props) {
         super(props);
         //this.state = props;
-        this.state = { expanded: false };
+        this.state = { expanded: false };       
         
-        console.log(this.state);
     }
 
     handleExpandClick = () => {
@@ -78,7 +74,7 @@ class Block extends React.Component {
                 <Card className={classes.card}>
                     <CardContent>
                         <Typography variant="body2" color="textPrimary" component="p" display="inline" >
-                            {this.props.blockContent.message}
+                            <b>{this.props.blockContent.key} </b>. {this.props.blockContent.message}
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>

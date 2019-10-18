@@ -6,4 +6,9 @@
     background-color: #66ffff;
     display: inline-block;    
     padding-right: 40px;
+    width : 100%;    
+    overflow: auto;
+    max-height: 500px;
+      
+    
 }
