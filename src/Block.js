@@ -19,6 +19,7 @@ const styles = {
         maxWidth: 345,
         marginBottom: 20,
         maxHeight: "100%",
+        textAlign : "left"
 
     },
     media: {
@@ -73,8 +74,8 @@ class Block extends React.Component {
             <div>
                 <Card className={classes.card}>
                     <CardContent>
-                        <Typography variant="body2" color="textPrimary" component="p" display="inline" >
-                            <b>{this.props.blockContent.key} </b>. {this.props.blockContent.message}
+                        <Typography variant="body2" color="textPrimary" component="p" display="inline" >                            
+                            <b>{this.props.showSortIndex ? this.props.sortIndex + ".":""} </b> {this.props.blockContent.message}
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
-import "./BlockSequence.css"
+//import "./BlockSequence.css"
 import ListIcon from "@material-ui/icons/List"
 import Typography from '@material-ui/core/Typography';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
@@ -18,28 +18,57 @@ const styles = {
     fab: {
         maxWidth: 35,
         maxHeight: 25,
-        backgroundColor : "green"
+        backgroundColor: "green"
+    },
+    dragHandle: {
+        width :"95px",
+        maxWidth: 95,
+        maxHeight: 95, 
     },
     headerContainer: {
-        paddingTop : "5px",
+        paddingTop: "5px",
+    },
+    blockSequenceContainer: {
 
+        borderStyle: "solid",
+        borderWidth: "2px",
+        borderRadius: "10px",
+        backgroundColor: "#66ffff",
+        display: "inline-block",
+        paddingRight: "40px",
+        width: "100%",
+        overflow: "auto",
+        maxHeight: "600px"
     }
 };
 
-const DragHandle = SortableHandle(() => <ListIcon color="secondary" >></ListIcon>);
+const DragHandle = SortableHandle((className) => <ListIcon  color="secondary" >></ListIcon>);
 
 class BlockSequence extends React.Component {
 
     constructor(props) {
-        super(props);
-        console.log(props);
-
+        super(props);        
     }
 
     SortableItem = SortableElement(({ moveItemFromSequenceToList, value, sortIndex }) =>
 
         <li key={value.key} >
-            <DragHandle /> <Block deleteButtonHandler={moveItemFromSequenceToList.bind(this)} blockContent={value} sortIndex={sortIndex} addButtonVisible={false} deleteButtonVisible={true}></Block>
+            <Container>
+                <Row>
+                    <Col sm="1">
+                        <DragHandle/>
+                    </Col>
+                    <Col sm="11">
+                        <Block
+                            deleteButtonHandler={moveItemFromSequenceToList.bind(this)}
+                            blockContent={value}
+                            showSortIndex={true}
+                            sortIndex={sortIndex}
+                            addButtonVisible={false}
+                            deleteButtonVisible={true}></Block>
+                    </Col>
+                </Row>
+            </Container>
         </li>
     );
 
@@ -53,27 +82,20 @@ class BlockSequence extends React.Component {
             </ul>
         );
     });
-    /*
-        onSortEnd = ({ oldIndex, newIndex }) => {
-            this.setState(({ items }) => ({
-                items: arrayMove(items, oldIndex, newIndex),
-            }));
-        };*/
 
     render() {
-        let classes = this.props.classes;
-
+        const classes = this.props.classes;        
         return (
-            <div class="block-sequence-container">
-                <Container className = {classes.headerContainer}>
+            <div className={classes.blockSequenceContainer}>
+                <Container className={classes.headerContainer}>
                     <Row>
                         <Col md="9">
                             <Typography variant="h6" display="inline">
-                                Blocks in Sequence
+                                Blocks To Be Executed
                             </Typography>
                         </Col>
                         <Col>
-                            <Fab className = {classes.fab} onClick={this.props.onRunClicked.bind(this)} color="primary" aria-label="add">
+                            <Fab className={classes.fab} onClick={this.props.onRunClicked.bind(this)} color="primary" aria-label="add">
                                 <PlayArrowIcon />
                             </Fab>
                         </Col>

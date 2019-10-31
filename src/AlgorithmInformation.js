@@ -1,23 +1,38 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import Typography from "@material-ui/core/Typography";
-
+import CreateBlock from "./CreateBlock";
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+import EditAlgorithmInformation from './EditAlgorithmInformation';
 
 const styles = {
 
     card: {
-        maxWidth: 345,
+        //maxWidth: 345,
         marginBottom: 10,
         maxHeight: "100%",
         borderRadius: "10px",
         borderWidth: "2px",
         borderColor: "black",
-        borderStyle: "solid"
+        borderStyle: "solid",
+        textAlign: "left"
     },
-};
+    input: {
+        display: 'none',
+    },
+    button: {
+        textAlign: "center",
+        marginBottom: "15px",
+        marginTop: "15px",
 
+    }
+};
 
 class AlgorithmInformation extends React.Component {
 
@@ -31,12 +46,12 @@ class AlgorithmInformation extends React.Component {
     createOutputMessages() {
         let outputMessageComponents = [];
         let outputMessages = this.props.algorithmInformation.output;
-        if (typeof (outputMessages ) === "undefined") {
+        if (typeof (outputMessages) === "undefined") {
             return;
         }
         for (let i = 0; i < outputMessages.length; i++) {
             outputMessageComponents.push(<Typography variant="body2" color="textSecondary" component="p" display="inline" >
-               <b>{outputMessages[i].key}.</b> {outputMessages[i].message} <br></br>
+                <b>{outputMessages[i].sortIndex}.</b> {outputMessages[i].message} <br></br>
             </Typography>)
         }
         return (outputMessageComponents);
@@ -64,15 +79,56 @@ class AlgorithmInformation extends React.Component {
                 </Card>
                 <Card className={classes.card}>
                     <CardContent>
-                        <Typography variant="h4" color="textPrimary" component="p" display="block" >
+                        <Typography variant="h5" color="textPrimary" component="p" display="block" >
                             Output
                         </Typography>
-                        <Typography variant="h7" color="textSecondary" component="p" display="block" >
-                        {this.createOutputMessages.bind(this)()}
+                        <Typography align="left" variant="h7" color="textSecondary" component="p" display="block" >
+                            {this.createOutputMessages.bind(this)()}
                         </Typography>
                     </CardContent>
                 </Card>
-            </div>
+                <Card className={classes.card}>
+                    <CardContent>
+                        <CreateBlock onNewBlockCreate={this.props.onNewBlockCreate.bind(this)}></CreateBlock>
+                    </CardContent>
+                </Card>
+                <Card className={classes.card}>
+                    <CardContent>
+                        <EditAlgorithmInformation onEditAlgorithmInformation = {this.props.onEditAlgorithmInformation}></EditAlgorithmInformation>
+                    </CardContent>
+                </Card>
+                <Card className={classes.card}>
+                    <CardContent>
+                        <Typography variant="h5" color="textPrimary" component="p" display="block" >
+                            Save/Load Algorithms
+                        </Typography>
+                        <Container>
+                            <Row>
+                                <Col>
+                                    <Button variant="contained" component="span" className={classes.button} onClick={this.props.onSaveAlgorithmClicked.bind(this)}>
+                                        Save current algorithm
+                                    </Button>
+                                </Col>
+                                <Col>
+                                    <input
+                                        accept=".json"
+                                        className={classes.input}
+                                        id="contained-button-file"
+                                        multiple
+                                        onChange={this.props.onAlgorithmLoaded}
+                                        type="file"
+                                    />
+                                    <label htmlFor="contained-button-file">
+                                        <Button variant="contained" component="span" className={classes.button}>
+                                            Load algorithm
+                            </Button>
+                                    </label>
+                                </Col>
+                            </Row>
+                        </Container>
+                    </CardContent>
+                </Card>
+            </div >
         )
     }
 }

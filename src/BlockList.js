@@ -16,13 +16,13 @@ const styles = {
         borderStyle: "solid",
         borderWidth: "2px",
         borderRadius: "10px",
-        width: "100%",  
-        maxHeight: "500px",
+        width: "100%",          
         overflow: "auto",
         backgroundColor: "#66ff66",
         display: "inline-block",
         paddingRight: "5%",
         paddingLeft: "5%",
+        maxHeight : "600px"
 
     },
     root: {
@@ -57,6 +57,7 @@ class BlockList extends React.Component {
                                 <Block
                                     key={item.key}
                                     blockContent={item}
+                                    showSortIndex = {false}
                                     sortIndex={index}
                                     addButtonVisible={true}
                                     deleteButtonVisible={false}
