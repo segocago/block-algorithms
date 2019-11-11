@@ -16,21 +16,13 @@ const styles = {
         borderStyle: "solid",
         borderWidth: "2px",
         borderRadius: "10px",
-<<<<<<< HEAD
         width: "100%",          
-=======
-        width: "100%",  
-        maxHeight: "500px",
->>>>>>> cfad729ed943ea945fdb19cda3ddf8ae150d65e2
         overflow: "auto",
-        backgroundColor: "#66ff66",
+        background: 'linear-gradient(to bottom, #00ff00, #b3ffb3)',
         display: "inline-block",
         paddingRight: "5%",
         paddingLeft: "5%",
-<<<<<<< HEAD
         maxHeight : "600px"
-=======
->>>>>>> cfad729ed943ea945fdb19cda3ddf8ae150d65e2
 
     },
     root: {
@@ -61,7 +53,7 @@ class BlockList extends React.Component {
                 <div className={classes.demo}>
                     <List dense={true} className={classes.list}>
                         {this.props.items.map((item, index) => (
-                            <li key={item.key}>
+                            <li key={index}>
                                 <Block
                                     key={item.key}
                                     blockContent={item}

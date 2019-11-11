@@ -1,7 +1,6 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-<<<<<<< HEAD
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -11,28 +10,19 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import EditAlgorithmInformation from './EditAlgorithmInformation';
-=======
-import Typography from "@material-ui/core/Typography";
-
-import { withStyles } from '@material-ui/core/styles';
->>>>>>> cfad729ed943ea945fdb19cda3ddf8ae150d65e2
 
 const styles = {
 
     card: {
-<<<<<<< HEAD
         //maxWidth: 345,
-=======
-        maxWidth: 345,
->>>>>>> cfad729ed943ea945fdb19cda3ddf8ae150d65e2
         marginBottom: 10,
         maxHeight: "100%",
         borderRadius: "10px",
         borderWidth: "2px",
         borderColor: "black",
-<<<<<<< HEAD
         borderStyle: "solid",
-        textAlign: "left"
+        textAlign: "left",
+        
     },
     input: {
         display: 'none',
@@ -42,16 +32,17 @@ const styles = {
         marginBottom: "15px",
         marginTop: "15px",
 
-    }
-};
-
-=======
-        borderStyle: "solid"
     },
+    container : {
+        paddingTop : "15px",
+        paddingLeft : "25px",
+        paddingRight : "15px",
+        paddingBottom : "15px",
+        
+    }
+
 };
 
-
->>>>>>> cfad729ed943ea945fdb19cda3ddf8ae150d65e2
 class AlgorithmInformation extends React.Component {
 
     constructor(props) {
@@ -64,20 +55,12 @@ class AlgorithmInformation extends React.Component {
     createOutputMessages() {
         let outputMessageComponents = [];
         let outputMessages = this.props.algorithmInformation.output;
-<<<<<<< HEAD
         if (typeof (outputMessages) === "undefined") {
-=======
-        if (typeof (outputMessages ) === "undefined") {
->>>>>>> cfad729ed943ea945fdb19cda3ddf8ae150d65e2
             return;
         }
         for (let i = 0; i < outputMessages.length; i++) {
             outputMessageComponents.push(<Typography variant="body2" color="textSecondary" component="p" display="inline" >
-<<<<<<< HEAD
-                <b>{outputMessages[i].sortIndex}.</b> {outputMessages[i].message} <br></br>
-=======
-               <b>{outputMessages[i].key}.</b> {outputMessages[i].message} <br></br>
->>>>>>> cfad729ed943ea945fdb19cda3ddf8ae150d65e2
+                <b>{outputMessages[i].sortIndex +1}.</b> {outputMessages[i].message} <br></br>
             </Typography>)
         }
         return (outputMessageComponents);
@@ -92,24 +75,23 @@ class AlgorithmInformation extends React.Component {
     render() {
         const classes = this.props.classes;
         return (
-            <div>
+            <div className = {classes.container}>
                 <Card className={classes.card}>
                     <CardContent>
                         <Typography variant="h5" color="textPrimary" component="p" display="block" >
                             Objective:  {this.props.algorithmInformation.algorithmName}
                         </Typography>
-                        <Typography variant="h7" color="textSecondary" component="p" display="block" >
+                        <Typography variant="h6" color="textSecondary" component="p" display="block" >
                             {this.props.algorithmInformation.algorithmDescription}
                         </Typography>
                     </CardContent>
                 </Card>
                 <Card className={classes.card}>
                     <CardContent>
-<<<<<<< HEAD
                         <Typography variant="h5" color="textPrimary" component="p" display="block" >
                             Output
                         </Typography>
-                        <Typography align="left" variant="h7" color="textSecondary" component="p" display="block" >
+                        <Typography align="left" variant="h6" color="textSecondary" component="p" display="block" >
                             {this.createOutputMessages.bind(this)()}
                         </Typography>
                     </CardContent>
@@ -160,18 +142,3 @@ class AlgorithmInformation extends React.Component {
     }
 }
 export default withStyles(styles)(AlgorithmInformation);
-=======
-                        <Typography variant="h4" color="textPrimary" component="p" display="block" >
-                            Output
-                        </Typography>
-                        <Typography variant="h7" color="textSecondary" component="p" display="block" >
-                        {this.createOutputMessages.bind(this)()}
-                        </Typography>
-                    </CardContent>
-                </Card>
-            </div>
-        )
-    }
-}
-export default withStyles(styles)(AlgorithmInformation);
->>>>>>> cfad729ed943ea945fdb19cda3ddf8ae150d65e2

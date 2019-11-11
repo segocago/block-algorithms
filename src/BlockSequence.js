@@ -1,11 +1,7 @@
 import React from 'react';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
-<<<<<<< HEAD
 //import "./BlockSequence.css"
-=======
-import "./BlockSequence.css"
->>>>>>> cfad729ed943ea945fdb19cda3ddf8ae150d65e2
 import ListIcon from "@material-ui/icons/List"
 import Typography from '@material-ui/core/Typography';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
@@ -22,7 +18,6 @@ const styles = {
     fab: {
         maxWidth: 35,
         maxHeight: 25,
-<<<<<<< HEAD
         backgroundColor: "green"
     },
     dragHandle: {
@@ -38,7 +33,7 @@ const styles = {
         borderStyle: "solid",
         borderWidth: "2px",
         borderRadius: "10px",
-        backgroundColor: "#66ffff",
+        background: 'linear-gradient(to bottom, #ff4d4d, #ffbb99)',
         display: "inline-block",
         paddingRight: "40px",
         width: "100%",
@@ -47,39 +42,21 @@ const styles = {
     }
 };
 
-const DragHandle = SortableHandle((className) => <ListIcon  color="secondary" >></ListIcon>);
-=======
-        backgroundColor : "green"
-    },
-    headerContainer: {
-        paddingTop : "5px",
-
-    }
-};
-
-const DragHandle = SortableHandle(() => <ListIcon color="secondary" >></ListIcon>);
->>>>>>> cfad729ed943ea945fdb19cda3ddf8ae150d65e2
+const DragHandle = SortableHandle((className) => <ListIcon color="primary" >></ListIcon>);
 
 class BlockSequence extends React.Component {
 
     constructor(props) {
-<<<<<<< HEAD
         super(props);        
-=======
-        super(props);
-        console.log(props);
-
->>>>>>> cfad729ed943ea945fdb19cda3ddf8ae150d65e2
     }
 
     SortableItem = SortableElement(({ moveItemFromSequenceToList, value, sortIndex }) =>
-
-        <li key={value.key} >
-<<<<<<< HEAD
+    
+        <li key={sortIndex} >
             <Container>
                 <Row>
                     <Col sm="1">
-                        <DragHandle/>
+                        <DragHandle />
                     </Col>
                     <Col sm="11">
                         <Block
@@ -92,9 +69,6 @@ class BlockSequence extends React.Component {
                     </Col>
                 </Row>
             </Container>
-=======
-            <DragHandle /> <Block deleteButtonHandler={moveItemFromSequenceToList.bind(this)} blockContent={value} sortIndex={sortIndex} addButtonVisible={false} deleteButtonVisible={true}></Block>
->>>>>>> cfad729ed943ea945fdb19cda3ddf8ae150d65e2
         </li>
     );
 
@@ -103,12 +77,11 @@ class BlockSequence extends React.Component {
         return (
             <ul style={{ listStyleType: "none" }}>
                 {items.map((value, index) => (
-                    <this.SortableItem moveItemFromSequenceToList={moveItemFromSequenceToList} key={value.key} index={index} sortIndex={index} value={value} />
+                    <this.SortableItem moveItemFromSequenceToList={moveItemFromSequenceToList} key={index} index={index} sortIndex={index} value={value} />
                 ))}
             </ul>
         );
     });
-<<<<<<< HEAD
 
     render() {
         const classes = this.props.classes;        
@@ -123,29 +96,6 @@ class BlockSequence extends React.Component {
                         </Col>
                         <Col>
                             <Fab className={classes.fab} onClick={this.props.onRunClicked.bind(this)} color="primary" aria-label="add">
-=======
-    /*
-        onSortEnd = ({ oldIndex, newIndex }) => {
-            this.setState(({ items }) => ({
-                items: arrayMove(items, oldIndex, newIndex),
-            }));
-        };*/
-
-    render() {
-        let classes = this.props.classes;
-
-        return (
-            <div class="block-sequence-container">
-                <Container className = {classes.headerContainer}>
-                    <Row>
-                        <Col md="9">
-                            <Typography variant="h6" display="inline">
-                                Blocks in Sequence
-                            </Typography>
-                        </Col>
-                        <Col>
-                            <Fab className = {classes.fab} onClick={this.props.onRunClicked.bind(this)} color="primary" aria-label="add">
->>>>>>> cfad729ed943ea945fdb19cda3ddf8ae150d65e2
                                 <PlayArrowIcon />
                             </Fab>
                         </Col>

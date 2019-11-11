@@ -49,7 +49,7 @@ class Block extends React.Component {
     }
 
     handleExpandClick = () => {
-        console.log("expand clicked");
+        
         let isExpanded = this.state.expanded;
         this.setState({ expanded: !isExpanded });
         
@@ -61,7 +61,7 @@ class Block extends React.Component {
             return;
         }
         for (let i = 0; i < this.props.blockContent.subMessages.length; i++) {
-            subMessageComponents.push(<Typography variant="body2" color="textSecondary" component="p" display="inline" >
+            subMessageComponents.push(<Typography key={i} variant="body2" color="textSecondary" component="p" display="inline" >
                 {this.props.blockContent.subMessages[i]} <br></br>
             </Typography>)
         }
@@ -74,20 +74,15 @@ class Block extends React.Component {
             <div>
                 <Card className={classes.card}>
                     <CardContent>
-<<<<<<< HEAD
                         <Typography variant="body2" color="textPrimary" component="p" display="inline" >                            
-                            <b>{this.props.showSortIndex ? this.props.sortIndex + ".":""} </b> {this.props.blockContent.message}
-=======
-                        <Typography variant="body2" color="textPrimary" component="p" display="inline" >
-                            <b>{this.props.blockContent.key} </b>. {this.props.blockContent.message}
->>>>>>> cfad729ed943ea945fdb19cda3ddf8ae150d65e2
+                            <b>{this.props.showSortIndex ? (this.props.sortIndex +1) + ".":""} </b> {this.props.blockContent.message}
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
-                        <Fab onClick = {event => {this.props.addButtonHandler(this.props.blockContent.key)}} color="primary" aria-label="add" className={classes.fab} style={{ display: this.props.addButtonVisible ? "block" : "none" }}>
+                        <Fab onClick = {event => {this.props.addButtonHandler(this.props.sortIndex)}} color="primary" aria-label="add" className={classes.fab} style={{ display: this.props.addButtonVisible ? "block" : "none" }}>
                             <AddIcon />
                         </Fab>
-                        <Fab onClick = {event => {this.props.deleteButtonHandler(this.props.blockContent.key)}} aria-label="delete" className={classes.fab} style={{ display: this.props.deleteButtonVisible ? "block" : "none" }}>
+                        <Fab onClick = {event => {this.props.deleteButtonHandler(this.props.sortIndex)}} aria-label="delete" className={classes.fab} style={{ display: this.props.deleteButtonVisible ? "block" : "none" }}>
                             <DeleteIcon />
                         </Fab>
                         <IconButton

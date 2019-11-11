@@ -25,10 +25,17 @@ class CreateBlock extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: "Do this,do that"
+            value: ""
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    //Prevent submit on enter
+    onKeyPress(event) {
+        if (event.target.type !== 'textarea' && event.which === 13 /* Enter */) {
+            event.preventDefault();
+      }
     }
 
     render() {
@@ -38,7 +45,7 @@ class CreateBlock extends React.Component {
                 <Typography variant="h5" color="textPrimary" component="p" display="block" >
                     New Algorithm Block
                         </Typography>
-                <form onSubmit={this.handleSubmit.bind(this)}>
+                <form onKeyPress={this.onKeyPress} onSubmit={this.handleSubmit.bind(this)}>
                     <TextField
                         value={this.state.value}
                         required
@@ -68,6 +75,9 @@ class CreateBlock extends React.Component {
         event.preventDefault();
         console.log("submit");
         this.props.onNewBlockCreate(this.state.value);
+
+        //Clear text field
+        this.setState({value : ""});
     }
 
 }

@@ -24,7 +24,14 @@ class EditAlgorithmInformation extends React.Component {
 
     constructor(props){
         super(props);
-        this.state = {objective :"Problem Objective", description: "Problem Description"};
+        this.state = {objective :"", description: ""};
+    }
+
+    //Prevent submit on enter
+    onKeyPress(event) {
+        if (event.target.type !== 'textarea' && event.which === 13 /* Enter */) {
+            event.preventDefault();
+      }
     }
 
     render() {
@@ -34,7 +41,7 @@ class EditAlgorithmInformation extends React.Component {
                 <Typography variant="h5" color="textPrimary" component="p" display="block" >
                     Edit Algorithm Information
                         </Typography>
-                <form onSubmit={this.handleSubmit.bind(this)}>
+                <form onKeyPress={this.onKeyPress} onSubmit={this.handleSubmit.bind(this)}>
                     <TextField
                         value = {this.state.objective}
                         required
@@ -78,6 +85,8 @@ class EditAlgorithmInformation extends React.Component {
         //Prevent page refresh
         event.preventDefault();        
         this.props.onEditAlgorithmInformation(this.state);
+        //Clear the state
+        this.setState ({objective :"",description: ""});
     }
 
 }
