@@ -45,8 +45,15 @@ const styles = {
     }
 }
 
-function saveObject(obj, filename) {
+function saveObjectToFile(obj, filename) {
     let text = JSON.stringify(obj);
+    var a = document.createElement('a');
+    a.setAttribute('href', 'data:text/plain;charset=utf-u,' + encodeURIComponent(text));
+    a.setAttribute('download', filename);
+    a.click()
+}
+
+function saveTextToFile(text, filename) {
     var a = document.createElement('a');
     a.setAttribute('href', 'data:text/plain;charset=utf-u,' + encodeURIComponent(text));
     a.setAttribute('download', filename);
@@ -64,35 +71,13 @@ class BlockAlgorithm extends React.Component {
         };
     }
 
-    onRunClicked() {
-        //Clear output
-        let newOutput = [];
-        let sequenceBlocks = this.state.sequenceBlocks;
-        let algorithmInformation = this.state.algorithmInformation;
-        for (let i = 0; i < sequenceBlocks.length; i++) {
-            let block = sequenceBlocks[i];
-            console.log(block);
 
-            let blockFuntion = block.blockFunction;
-            let outputMessage;
-            if (typeof (blockFuntion) != "undefined") {
-                outputMessage = block.blockFunction();
-            } else {
-                outputMessage = block.message;
-            }
-            newOutput.push({ sortIndex: i, message: outputMessage });
-        }
-        algorithmInformation.output = newOutput;
-        this.setState({ algorithmInformation: algorithmInformation });
-        console.log(this.state.algorithmInformation.output);
-    }
 
     moveItemFromListToSequence(index) {
 
         let availableBlocks = this.state.availableBlocks;
         let sequenceBlocks = this.state.sequenceBlocks;
-
-        console.log(index);
+        
         let item = availableBlocks[index];
         sequenceBlocks.push(item);
         /*
@@ -129,6 +114,61 @@ class BlockAlgorithm extends React.Component {
         this.setState({ availableBlocks: availableBlocks, sequenceBlocks: sequenceBlocks });
     }
 
+    generateJavaTemplate() {
+        let template =
+            "import java.util.Scanner;\n" +
+            "/**\n" +
+            "* __program description___\n" +
+            "* @author __your name___\n" +
+            "* @version __date__\n" +
+            "*/\n" +
+            "public class template\n" +
+            "{\n" +
+            "   public static void main( String[] args)\n" +
+            "   {\n" +
+            "       Scanner scan = new Scanner( System.in);\n" +
+            "      // constants\n\n" +
+            "       // variables\n\n" +
+            "       // TODO LIST";
+
+        let output = this.state.algorithmInformation.output;
+        for (let i=0;i<output.length;i++){
+            console.log(output[i].message)
+            template =template + "\n        //" + output[i].message;
+        }
+
+        template += "\n       System.out.println( \"Start...\");\n" +
+            "       System.out.println( \"End.\");\n" +
+            "   }\n" +
+            "}\n"
+        console.log(template);
+        saveTextToFile(template, "template.java");
+
+    }
+
+    onRunClicked() {
+        //Clear output
+        let newOutput = [];
+        let sequenceBlocks = this.state.sequenceBlocks;
+        let algorithmInformation = this.state.algorithmInformation;
+        for (let i = 0; i < sequenceBlocks.length; i++) {
+            let block = sequenceBlocks[i];            
+
+            let blockFuntion = block.blockFunction;
+            let outputMessage;
+            if (typeof (blockFuntion) != "undefined") {
+                outputMessage = block.blockFunction();
+            } else {
+                outputMessage = block.message;
+            }
+            newOutput.push({ sortIndex: i, message: outputMessage });
+        }
+        algorithmInformation.output = newOutput;
+        this.setState({ algorithmInformation: algorithmInformation });
+
+        this.generateJavaTemplate();
+    }
+
     //Handle reordering at block sequence
     onSortEnd({ oldIndex, newIndex }) {
         let sequenceBlocks = this.state.sequenceBlocks;
@@ -161,7 +201,7 @@ class BlockAlgorithm extends React.Component {
             availableBlocks: this.state.availableBlocks
 
         }
-        saveObject(algorithm, "algorithm.json");
+        saveObjectToFile(algorithm, "algorithm.json");
     }
 
     onAlgorithmLoaded(event) {
