@@ -115,6 +115,7 @@ class BlockAlgorithm extends React.Component {
     }
 
     generateJavaTemplate() {
+        
         let template =
             "import java.util.Scanner;\n" +
             "/**\n" +
@@ -127,14 +128,21 @@ class BlockAlgorithm extends React.Component {
             "   public static void main( String[] args)\n" +
             "   {\n" +
             "       Scanner scan = new Scanner( System.in);\n" +
-            "      // constants\n\n" +
+            "       // constants\n\n" +
             "       // variables\n\n" +
-            "       // TODO LIST";
+            "       // TODO LIST\n";
 
         let output = this.state.algorithmInformation.output;
+
+        if(output.length === 0){
+            alert("Execute the blocks before generating template");
+            return;
+        }
+
+
         for (let i=0;i<output.length;i++){
             console.log(output[i].message)
-            template =template + "\n        //" + output[i].message;
+            template =template + "\n       //" + output[i].message +"\n";
         }
 
         template += "\n       System.out.println( \"Start...\");\n" +
@@ -165,8 +173,7 @@ class BlockAlgorithm extends React.Component {
         }
         algorithmInformation.output = newOutput;
         this.setState({ algorithmInformation: algorithmInformation });
-
-        this.generateJavaTemplate();
+        
     }
 
     //Handle reordering at block sequence
@@ -254,7 +261,8 @@ class BlockAlgorithm extends React.Component {
                                     onSaveAlgorithmClicked={this.onSaveAlgorithmClicked.bind(this)}
                                     onAlgorithmLoaded={this.onAlgorithmLoaded.bind(this)}
                                     onNewBlockCreate={this.onNewBlockCreate.bind(this)}
-                                    algorithmInformation={this.state.algorithmInformation}
+                                    generateJavaTemplate = {this.generateJavaTemplate.bind(this)}
+                                    algorithmInformation={this.state.algorithmInformation}                                    
                                 ></AlgorithmInformation>
                             </div>
                         </Col>

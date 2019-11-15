@@ -22,7 +22,7 @@ const styles = {
         borderColor: "black",
         borderStyle: "solid",
         textAlign: "left",
-        
+
     },
     input: {
         display: 'none',
@@ -31,14 +31,15 @@ const styles = {
         textAlign: "center",
         marginBottom: "15px",
         marginTop: "15px",
+        
 
     },
-    container : {
-        paddingTop : "15px",
-        paddingLeft : "25px",
-        paddingRight : "15px",
-        paddingBottom : "15px",
-        
+    container: {
+        paddingTop: "15px",
+        paddingLeft: "25px",
+        paddingRight: "15px",
+        paddingBottom: "15px",
+
     }
 
 };
@@ -60,7 +61,7 @@ class AlgorithmInformation extends React.Component {
         }
         for (let i = 0; i < outputMessages.length; i++) {
             outputMessageComponents.push(<Typography variant="body2" color="textSecondary" component="p" display="inline" >
-                <b>{outputMessages[i].sortIndex +1}.</b> {outputMessages[i].message} <br></br>
+                <b>{outputMessages[i].sortIndex + 1}.</b> {outputMessages[i].message} <br></br>
             </Typography>)
         }
         return (outputMessageComponents);
@@ -75,7 +76,7 @@ class AlgorithmInformation extends React.Component {
     render() {
         const classes = this.props.classes;
         return (
-            <div className = {classes.container}>
+            <div className={classes.container}>
                 <Card className={classes.card}>
                     <CardContent>
                         <Typography variant="h5" color="textPrimary" component="p" display="block" >
@@ -103,7 +104,7 @@ class AlgorithmInformation extends React.Component {
                 </Card>
                 <Card className={classes.card}>
                     <CardContent>
-                        <EditAlgorithmInformation onEditAlgorithmInformation = {this.props.onEditAlgorithmInformation}></EditAlgorithmInformation>
+                        <EditAlgorithmInformation onEditAlgorithmInformation={this.props.onEditAlgorithmInformation}></EditAlgorithmInformation>
                     </CardContent>
                 </Card>
                 <Card className={classes.card}>
@@ -135,6 +136,16 @@ class AlgorithmInformation extends React.Component {
                                 </Col>
                             </Row>
                         </Container>
+                    </CardContent>
+                </Card>
+                <Card className={classes.card}>
+                    <CardContent>
+                        <Typography variant="h5" color="textPrimary" component="p" display="block" >
+                            Generate Java Class Template
+                        </Typography>
+                        <Button variant="contained" component="span" className={classes.button} onClick={this.props.generateJavaTemplate.bind(this)}>
+                            Generate Template
+                        </Button>
                     </CardContent>
                 </Card>
             </div >
