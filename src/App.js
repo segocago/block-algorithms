@@ -1,6 +1,10 @@
 import React from 'react';
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import './App.css';
+
 import BlockAlgorithm from "./BlockAlgorithm";
+import Header from "./Header";
+
 
 function test() {
   console.log("test");
@@ -95,10 +99,14 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
-        <BlockAlgorithm
-          initialAlgorithmInformation={initialAlgorithmInformation}
-          initialAvailableBlocks={emptyInitialAvailableBlocks}
-          initialSequenceBlocks={initialSequenceBlocks}></BlockAlgorithm>
+        <Router>
+          
+          <BlockAlgorithm
+            initialAlgorithmInformation={initialAlgorithmInformation}
+            initialAvailableBlocks={emptyInitialAvailableBlocks}
+            initialSequenceBlocks={initialSequenceBlocks}>
+          </BlockAlgorithm>
+        </Router>
       </div>
     );
   }

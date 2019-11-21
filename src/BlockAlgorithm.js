@@ -10,6 +10,7 @@ import BlockList from "./BlockList"
 import AlgorithmInformation from "./AlgorithmInformation"
 
 import { withStyles } from '@material-ui/core/styles';
+import { throwStatement } from '@babel/types';
 
 const styles = {
 
@@ -64,20 +65,23 @@ class BlockAlgorithm extends React.Component {
 
     constructor(props) {
         super(props);
+        let nextBlockToExecute = 0
         this.state = {
+
             availableBlocks: props.initialAvailableBlocks,
             sequenceBlocks: props.initialSequenceBlocks,
-            algorithmInformation: props.initialAlgorithmInformation
+            algorithmInformation: props.initialAlgorithmInformation,
+            nextBlockToExecute: nextBlockToExecute
+
         };
     }
-
 
 
     moveItemFromListToSequence(index) {
 
         let availableBlocks = this.state.availableBlocks;
         let sequenceBlocks = this.state.sequenceBlocks;
-        
+
         let item = availableBlocks[index];
         sequenceBlocks.push(item);
         /*
@@ -115,7 +119,7 @@ class BlockAlgorithm extends React.Component {
     }
 
     generateJavaTemplate() {
-        
+
         let template =
             "import java.util.Scanner;\n" +
             "/**\n" +
@@ -134,15 +138,15 @@ class BlockAlgorithm extends React.Component {
 
         let output = this.state.algorithmInformation.output;
 
-        if(output.length === 0){
+        if (output.length === 0) {
             alert("Execute the blocks before generating template");
             return;
         }
 
 
-        for (let i=0;i<output.length;i++){
+        for (let i = 0; i < output.length; i++) {
             console.log(output[i].message)
-            template =template + "\n       //" + output[i].message +"\n";
+            template = template + "\n       //" + output[i].message + "\n";
         }
 
         template += "\n       System.out.println( \"Start...\");\n" +
@@ -160,7 +164,7 @@ class BlockAlgorithm extends React.Component {
         let sequenceBlocks = this.state.sequenceBlocks;
         let algorithmInformation = this.state.algorithmInformation;
         for (let i = 0; i < sequenceBlocks.length; i++) {
-            let block = sequenceBlocks[i];            
+            let block = sequenceBlocks[i];
 
             let blockFuntion = block.blockFunction;
             let outputMessage;
@@ -172,8 +176,47 @@ class BlockAlgorithm extends React.Component {
             newOutput.push({ sortIndex: i, message: outputMessage });
         }
         algorithmInformation.output = newOutput;
-        this.setState({ algorithmInformation: algorithmInformation });
-        
+        this.setState({
+            algorithmInformation: algorithmInformation,
+            nextBlockToExecute : 0
+        });
+    }
+
+    onExecuteCurrentClicked() {
+        //Get existing output
+
+        let sequenceBlocks = this.state.sequenceBlocks;
+        if (sequenceBlocks.length === 0) {
+            return;
+        }
+        let algorithmInformation = this.state.algorithmInformation;
+        let nextBlockToExecute = this.state.nextBlockToExecute;
+        let output = [];
+
+        //Keep old output if we are not at start
+        if (nextBlockToExecute !== 0) {
+            output = algorithmInformation.output;
+        }
+
+        let block = sequenceBlocks[nextBlockToExecute];
+
+        let blockFuntion = block.blockFunction;
+        let outputMessage;
+        if (typeof (blockFuntion) != "undefined") {
+            outputMessage = block.blockFunction();
+        } else {
+            outputMessage = block.message;
+        }
+        output.push({ sortIndex: (nextBlockToExecute), message: outputMessage });
+
+        //Move next block in cyclic manner
+        nextBlockToExecute = (nextBlockToExecute + 1) % sequenceBlocks.length;
+
+        algorithmInformation.output = output;
+        this.setState({
+            algorithmInformation: algorithmInformation,
+            nextBlockToExecute: nextBlockToExecute
+        });
     }
 
     //Handle reordering at block sequence
@@ -261,13 +304,18 @@ class BlockAlgorithm extends React.Component {
                                     onSaveAlgorithmClicked={this.onSaveAlgorithmClicked.bind(this)}
                                     onAlgorithmLoaded={this.onAlgorithmLoaded.bind(this)}
                                     onNewBlockCreate={this.onNewBlockCreate.bind(this)}
-                                    generateJavaTemplate = {this.generateJavaTemplate.bind(this)}
-                                    algorithmInformation={this.state.algorithmInformation}                                    
+                                    generateJavaTemplate={this.generateJavaTemplate.bind(this)}
+                                    algorithmInformation={this.state.algorithmInformation}
                                 ></AlgorithmInformation>
                             </div>
                         </Col>
                         <Col md="4" >
-                            <BlockSequence onRunClicked={this.onRunClicked.bind(this)} onSortEnd={this.onSortEnd.bind(this)} items={this.state.sequenceBlocks} moveItemFromSequenceToList={this.moveItemFromSequenceToList.bind(this)}> </BlockSequence>
+                            <BlockSequence onRunClicked={this.onRunClicked.bind(this)}
+                                onSortEnd={this.onSortEnd.bind(this)}
+                                items={this.state.sequenceBlocks}
+                                moveItemFromSequenceToList={this.moveItemFromSequenceToList.bind(this)}
+                                onExecuteCurrentClicked={this.onExecuteCurrentClicked.bind(this)}
+                                nextBlockToExecute={this.state.nextBlockToExecute}> </BlockSequence>
                         </Col>
                         <Col md="4" >
                             <BlockList items={this.state.availableBlocks} moveItemFromListToSequence={this.moveItemFromListToSequence.bind(this)}></BlockList>

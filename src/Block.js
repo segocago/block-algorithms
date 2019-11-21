@@ -22,6 +22,15 @@ const styles = {
         textAlign : "left"
 
     },
+    cardFocused: {
+        maxWidth: 345,
+        marginBottom: 20,
+        maxHeight: "100%",
+        textAlign : "left",
+        background : "red",
+
+    },
+
     media: {
         height: 0,
         paddingTop: "56.25%" // 16:9
@@ -70,9 +79,14 @@ class Block extends React.Component {
 
     render() {
         const classes = this.props.classes;
+        let isFocused = this.props.isFocused;
+        if(typeof(isFocused)==="undefined"){
+            isFocused = false;
+        }
+
         return (
             <div>
-                <Card className={classes.card}>
+                <Card className={isFocused?classes.cardFocused:classes.card}>
                     <CardContent>
                         <Typography variant="body2" color="textPrimary" component="p" display="inline" >                            
                             <b>{this.props.showSortIndex ? (this.props.sortIndex +1) + ".":""} </b> {this.props.blockContent.message}

@@ -5,25 +5,34 @@ import { SortableContainer, SortableElement, SortableHandle } from 'react-sortab
 import ListIcon from "@material-ui/icons/List"
 import Typography from '@material-ui/core/Typography';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Fab from '@material-ui/core/Fab';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Tooltip from '@material-ui/core/Tooltip';
 
 import { withStyles } from '@material-ui/core/styles';
 import Block from "./Block"
 
 const styles = {
 
-    fab: {
+    fab1: {
         maxWidth: 35,
         maxHeight: 25,
-        backgroundColor: "green"
+        backgroundColor: "green",
+        margingRight: "55px"
+    },
+    fab2: {
+        maxWidth: 35,
+        maxHeight: 25,
+        backgroundColor: "blue",
+        margingRight: "55px"
     },
     dragHandle: {
-        width :"95px",
+        width: "95px",
         maxWidth: 95,
-        maxHeight: 95, 
+        maxHeight: 95,
     },
     headerContainer: {
         paddingTop: "5px",
@@ -47,11 +56,11 @@ const DragHandle = SortableHandle((className) => <ListIcon color="primary" >></L
 class BlockSequence extends React.Component {
 
     constructor(props) {
-        super(props);        
+        super(props);
     }
 
     SortableItem = SortableElement(({ moveItemFromSequenceToList, value, sortIndex }) =>
-    
+
         <li key={sortIndex} >
             <Container>
                 <Row>
@@ -65,7 +74,8 @@ class BlockSequence extends React.Component {
                             showSortIndex={true}
                             sortIndex={sortIndex}
                             addButtonVisible={false}
-                            deleteButtonVisible={true}></Block>
+                            deleteButtonVisible={true}
+                            isFocused = {sortIndex === this.props.nextBlockToExecute}></Block>
                     </Col>
                 </Row>
             </Container>
@@ -81,23 +91,32 @@ class BlockSequence extends React.Component {
                 ))}
             </ul>
         );
-    });
+    });    
 
     render() {
-        const classes = this.props.classes;        
+        const classes = this.props.classes;
         return (
             <div className={classes.blockSequenceContainer}>
                 <Container className={classes.headerContainer}>
                     <Row>
-                        <Col md="9">
+                        <Col md="auto">
                             <Typography variant="h6" display="inline">
                                 Blocks To Be Executed
                             </Typography>
                         </Col>
                         <Col>
-                            <Fab className={classes.fab} onClick={this.props.onRunClicked.bind(this)} color="primary" aria-label="add">
-                                <PlayArrowIcon />
-                            </Fab>
+                            <Tooltip title="Execute all blocks">
+                                <Fab className={classes.fab1} onClick={this.props.onRunClicked.bind(this)} color="primary" aria-label="add">
+                                    <PlayArrowIcon />
+                                </Fab>
+                            </Tooltip>
+                        </Col>
+                        <Col>
+                            <Tooltip title="Execute current block">
+                                <Fab className={classes.fab2} onClick={this.props.onExecuteCurrentClicked.bind(this)} color="primary" aria-label="add">
+                                    <ArrowForwardIosIcon />
+                                </Fab>
+                            </Tooltip>
                         </Col>
                     </Row>
                 </Container>
