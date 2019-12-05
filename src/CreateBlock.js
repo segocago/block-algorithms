@@ -47,6 +47,7 @@ class CreateBlock extends React.Component {
                         </Typography>
                 <form onKeyPress={this.onKeyPress} onSubmit={this.handleSubmit.bind(this)}>
                     <TextField
+                        multiline
                         value={this.state.value}
                         required
                         id="outlined-basic"
