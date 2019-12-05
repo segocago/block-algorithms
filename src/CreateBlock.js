@@ -13,7 +13,7 @@ const styles = {
 
     textField: {
 
-        width: 200,
+        width: "100%",
     },
     submitButtonContainer: {
         textAlign: "right",
@@ -74,7 +74,7 @@ class CreateBlock extends React.Component {
     handleSubmit(event) {
         //Prevent page refresh
         event.preventDefault();
-        console.log("submit");
+        
         this.props.onNewBlockCreate(this.state.value);
 
         //Clear text field

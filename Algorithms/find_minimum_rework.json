@@ -1,0 +1,22 @@
+{
+    "algorithmInformation": {
+        "algorithmDescription": "Find the minimum element in a given list.",
+        "algorithmName": "Find the minimum element",
+        "output": []
+    },
+    "availableBlocks": [{
+            "key": 6,
+            "message": "Read n numbers into a list"
+        }, {
+            "key": 8,
+            "message": "Start from second element and iterate until the end of list:\n   If current element is less than minimum element:\n   Assign current element as minimum element."
+        }, {
+            "key": 7,
+            "message": "Assign first element in the list as minimum element"
+        }, 		{
+            "key": 9,
+            "message": "Report the minimum element"
+        }
+    ],
+    "sequenceBlocks": []
+}

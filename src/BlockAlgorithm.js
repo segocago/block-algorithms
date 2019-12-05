@@ -134,6 +134,9 @@ class BlockAlgorithm extends React.Component {
             "       Scanner scan = new Scanner( System.in);\n" +
             "       // constants\n\n" +
             "       // variables\n\n" +
+            "       // program codde \n\n"+
+            "       System.out.println( \"Start...\");\n" +
+            "\n"+
             "       // TODO LIST\n";
 
         let output = this.state.algorithmInformation.output;
@@ -145,11 +148,15 @@ class BlockAlgorithm extends React.Component {
 
 
         for (let i = 0; i < output.length; i++) {
-            console.log(output[i].message)
-            template = template + "\n       //" + output[i].message + "\n";
+            let message = output[i].message;
+            console.log(message);
+            let messageLines = message.split("\n");
+            for(let j=0;j<messageLines.length;j++){
+                template = template + "\n       // " + messageLines[j] + "\n";
+            }            
         }
 
-        template += "\n       System.out.println( \"Start...\");\n" +
+        template += "\n"+
             "       System.out.println( \"End.\");\n" +
             "   }\n" +
             "}\n"
@@ -255,8 +262,12 @@ class BlockAlgorithm extends React.Component {
     }
 
     onAlgorithmLoaded(event) {
-
+        
         let file = event.target.files[0];
+        
+        if(!file){
+            return;
+        }
         var reader = new FileReader();
 
         let blockAlgorithmComp = this;
@@ -265,7 +276,7 @@ class BlockAlgorithm extends React.Component {
                 var contents = reader.result;
 
                 let algorithm = JSON.parse(contents);
-                console.log(algorithm);
+                
                 let algorithmInformation = algorithm.algorithmInformation;
                 let sequenceBlocks = algorithm.sequenceBlocks;
                 let availableBlocks = algorithm.availableBlocks;

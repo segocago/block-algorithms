@@ -1,1 +1,24 @@
-{"algorithmInformation":{"algorithmName":"Sorting A List","algorithmDescription":"Sort a list of n numbers in ascending order.","output":[]},"sequenceBlocks":[],"availableBlocks":[{"message":"Read k numbers from user into a list","key":6},{"message":"Assign sorted pointer to index 0","key":7},{"message":"While sorted pointer is not at the end of list: \r\n Find minimum element from unsorted part \r\n Swap minimum element with the first element in unsorted part \r\n Increment sorted pointer","key":8},{"message":"Report the list","key":9}]}
+{
+    "algorithmInformation": {
+        "algorithmName": "Sorting A List",
+        "algorithmDescription": "Sort a list of n numbers in ascending order.",
+        "output": []
+    },
+    "sequenceBlocks": [],
+    "availableBlocks": [ 
+		{
+            "message": "While sorted pointer is not at the end of list: \r\n    Find minimum element from unsorted part \r\n    Swap minimum element with the first element in unsorted part \r\n    Increment sorted pointer",
+            "key": 8
+        },{
+            "message": "Assign sorted pointer to index 0",
+            "key": 7
+        },{
+            "message": "Report the list",
+            "key": 9
+        },
+		{
+            "message": "Read n numbers from user into a list",
+            "key": 6
+        }
+    ]
+}

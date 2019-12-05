@@ -16,18 +16,18 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = {
 
     card: {
-        maxWidth: 345,
+        maxWidth: "100%",
         marginBottom: 20,
         maxHeight: "100%",
-        textAlign : "left"
+        textAlign: "left"
 
     },
     cardFocused: {
         maxWidth: 345,
         marginBottom: 20,
         maxHeight: "100%",
-        textAlign : "left",
-        background : "red",
+        textAlign: "left",
+        background: "#94b8b8",
 
     },
 
@@ -45,6 +45,9 @@ const styles = {
     fab: {
         maxWidth: 35,
         maxHeight: 25
+    },
+    multiLineTextArea: {
+        whiteSpace: "pre-wrap"
     }
 };
 
@@ -53,15 +56,15 @@ class Block extends React.Component {
     constructor(props) {
         super(props);
         //this.state = props;
-        this.state = { expanded: false };       
-        
+        this.state = { expanded: false };
+
     }
 
     handleExpandClick = () => {
-        
+
         let isExpanded = this.state.expanded;
         this.setState({ expanded: !isExpanded });
-        
+
     };
 
     createSubmessages() {
@@ -80,23 +83,25 @@ class Block extends React.Component {
     render() {
         const classes = this.props.classes;
         let isFocused = this.props.isFocused;
-        if(typeof(isFocused)==="undefined"){
+        if (typeof (isFocused) === "undefined") {
             isFocused = false;
         }
-
+        
         return (
             <div>
-                <Card className={isFocused?classes.cardFocused:classes.card}>
+                <Card className={isFocused ? classes.cardFocused : classes.card}>
                     <CardContent>
-                        <Typography variant="body2" color="textPrimary" component="p" display="inline" >                            
-                            <b>{this.props.showSortIndex ? (this.props.sortIndex +1) + ".":""} </b> {this.props.blockContent.message}
+                        <Typography variant="body2" color="textPrimary" component="p" display="inline" >
+                            <div className={classes.multiLineTextArea}>
+                                <b>{this.props.showSortIndex ? (this.props.sortIndex + 1) + "." : ""}</b>{this.props.blockContent.message}
+                            </div>
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
-                        <Fab onClick = {event => {this.props.addButtonHandler(this.props.sortIndex)}} color="primary" aria-label="add" className={classes.fab} style={{ display: this.props.addButtonVisible ? "block" : "none" }}>
+                        <Fab onClick={event => { this.props.addButtonHandler(this.props.sortIndex) }} color="primary" aria-label="add" className={classes.fab} style={{ display: this.props.addButtonVisible ? "block" : "none" }}>
                             <AddIcon />
                         </Fab>
-                        <Fab onClick = {event => {this.props.deleteButtonHandler(this.props.sortIndex)}} aria-label="delete" className={classes.fab} style={{ display: this.props.deleteButtonVisible ? "block" : "none" }}>
+                        <Fab onClick={event => { this.props.deleteButtonHandler(this.props.sortIndex) }} aria-label="delete" className={classes.fab} style={{ display: this.props.deleteButtonVisible ? "block" : "none" }}>
                             <DeleteIcon />
                         </Fab>
                         <IconButton

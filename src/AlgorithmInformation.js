@@ -31,7 +31,7 @@ const styles = {
         textAlign: "center",
         marginBottom: "15px",
         marginTop: "15px",
-        
+
 
     },
     container: {
@@ -40,6 +40,9 @@ const styles = {
         paddingRight: "15px",
         paddingBottom: "15px",
 
+    },
+    multiLineTextArea: {
+        whiteSpace: "pre-wrap"
     }
 
 };
@@ -93,20 +96,12 @@ class AlgorithmInformation extends React.Component {
                             Output
                         </Typography>
                         <Typography align="left" variant="h6" color="textSecondary" component="p" display="block" >
-                            {this.createOutputMessages.bind(this)()}
+                            <div className={classes.multiLineTextArea}>
+                                {this.createOutputMessages.bind(this)()}
+                            </div>
                         </Typography>
                     </CardContent>
-                </Card>
-                <Card className={classes.card}>
-                    <CardContent>
-                        <CreateBlock onNewBlockCreate={this.props.onNewBlockCreate.bind(this)}></CreateBlock>
-                    </CardContent>
-                </Card>
-                <Card className={classes.card}>
-                    <CardContent>
-                        <EditAlgorithmInformation onEditAlgorithmInformation={this.props.onEditAlgorithmInformation}></EditAlgorithmInformation>
-                    </CardContent>
-                </Card>
+                </Card>                
                 <Card className={classes.card}>
                     <CardContent>
                         <Typography variant="h5" color="textPrimary" component="p" display="block" >
@@ -146,6 +141,16 @@ class AlgorithmInformation extends React.Component {
                         <Button variant="contained" component="span" className={classes.button} onClick={this.props.generateJavaTemplate.bind(this)}>
                             Generate Template
                         </Button>
+                    </CardContent>
+                </Card>
+                <Card className={classes.card}>
+                    <CardContent>
+                        <CreateBlock onNewBlockCreate={this.props.onNewBlockCreate.bind(this)}></CreateBlock>
+                    </CardContent>
+                </Card>
+                <Card className={classes.card}>
+                    <CardContent>
+                        <EditAlgorithmInformation onEditAlgorithmInformation={this.props.onEditAlgorithmInformation}></EditAlgorithmInformation>
                     </CardContent>
                 </Card>
             </div >

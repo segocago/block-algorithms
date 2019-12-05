@@ -1,0 +1,28 @@
+{
+    "algorithmInformation": {
+        "algorithmName": "Determine if a string is palindrome",
+        "algorithmDescription": "Palindrome is a word, phrase, or sequence that reads the same backwards as forwards, e.g. madam",
+        "output": []
+    },
+    "sequenceBlocks": [],
+    "availableBlocks": [{
+            "message": "// While there are characters to compare \nwhile (i < j) { ",
+            "key": 2
+        }, {
+            "message": "// Pointers pointing to the beginning and the end of the string \nint i = 0, j = str.length() - 1; ",
+            "key": 1
+        }, {
+            "message": "    // If there is a mismatch \n    if (str.charAt(i) != str.charAt(j)) \n        return false; ",
+            "key": 3
+        }, {
+            "message": "    // Increment first pointer and decrement the other \n    i++; \n    j--; ",
+            "key": 4
+        }, {
+            "message": "}   \n// Given string is a palindrome \nreturn true; ",
+            "key": 5
+        }, {
+            "message": " String str= scan.nextLine();",
+            "key": 6
+        }
+    ]
+}
