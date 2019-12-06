@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import EditAlgorithmInformation from './EditAlgorithmInformation';
+import Highlighter from "react-highlight-words";
 
 const styles = {
 
@@ -44,7 +45,6 @@ const styles = {
     multiLineTextArea: {
         whiteSpace: "pre-wrap"
     }
-
 };
 
 class AlgorithmInformation extends React.Component {
@@ -62,9 +62,23 @@ class AlgorithmInformation extends React.Component {
         if (typeof (outputMessages) === "undefined") {
             return;
         }
+        let selection = this.state.highlightedSelection;
+        let searchWords = [];
+        if(selection){
+            searchWords.push(selection)
+        }
+        
         for (let i = 0; i < outputMessages.length; i++) {
+
+            let message = outputMessages[i].message;
+
             outputMessageComponents.push(<Typography variant="body2" color="textSecondary" component="p" display="inline" >
-                <b>{outputMessages[i].sortIndex + 1}.</b> {outputMessages[i].message} <br></br>
+                <b>{outputMessages[i].sortIndex + 1}.</b>
+                <Highlighter
+                    searchWords={searchWords}
+                    autoEscape={true}
+                    textToHighlight={message}
+                /> <br></br>
             </Typography>)
         }
         return (outputMessageComponents);
@@ -75,6 +89,16 @@ class AlgorithmInformation extends React.Component {
         let isExpanded = this.state.expanded;
         this.setState({ expanded: !isExpanded });
     };
+
+    onOutputMouseUp() {
+        let selected = window.getSelection().toString();
+        if (selected.length > 0) {
+            this.setState({ highlightedSelection: selected })
+        }else {
+            this.setState({ highlightedSelection: null })
+
+        }
+    }
 
     render() {
         const classes = this.props.classes;
@@ -91,17 +115,17 @@ class AlgorithmInformation extends React.Component {
                     </CardContent>
                 </Card>
                 <Card className={classes.card}>
-                    <CardContent>
+                    <CardContent onMouseUp={this.onOutputMouseUp.bind(this)}>
                         <Typography variant="h5" color="textPrimary" component="p" display="block" >
                             Output
                         </Typography>
                         <Typography align="left" variant="h6" color="textSecondary" component="p" display="block" >
-                            <div className={classes.multiLineTextArea}>
+                            <div className={classes.multiLineTextArea} >
                                 {this.createOutputMessages.bind(this)()}
                             </div>
                         </Typography>
                     </CardContent>
-                </Card>                
+                </Card>
                 <Card className={classes.card}>
                     <CardContent>
                         <Typography variant="h5" color="textPrimary" component="p" display="block" >
