@@ -134,9 +134,9 @@ class BlockAlgorithm extends React.Component {
             "       Scanner scan = new Scanner( System.in);\n" +
             "       // constants\n\n" +
             "       // variables\n\n" +
-            "       // program codde \n\n"+
+            "       // program codde \n\n" +
             "       System.out.println( \"Start...\");\n" +
-            "\n"+
+            "\n" +
             "       // TODO LIST\n";
 
         let output = this.state.algorithmInformation.output;
@@ -151,12 +151,17 @@ class BlockAlgorithm extends React.Component {
             let message = output[i].message;
             console.log(message);
             let messageLines = message.split("\n");
-            for(let j=0;j<messageLines.length;j++){
-                template = template + "\n       // " + messageLines[j] + "\n";
-            }            
+            for (let j = 0; j < messageLines.length; j++) {
+                if (j == 0) {
+                    template = template + "\n       // "+(i+1)+". " + messageLines[j] + "\n";
+                } else {
+                    template = template + "\n       // " + messageLines[j] + "\n";
+                }
+
+            }
         }
 
-        template += "\n"+
+        template += "\n" +
             "       System.out.println( \"End.\");\n" +
             "   }\n" +
             "}\n"
@@ -185,7 +190,7 @@ class BlockAlgorithm extends React.Component {
         algorithmInformation.output = newOutput;
         this.setState({
             algorithmInformation: algorithmInformation,
-            nextBlockToExecute : 0
+            nextBlockToExecute: 0
         });
     }
 
@@ -262,10 +267,10 @@ class BlockAlgorithm extends React.Component {
     }
 
     onAlgorithmLoaded(event) {
-        
+
         let file = event.target.files[0];
-        
-        if(!file){
+
+        if (!file) {
             return;
         }
         var reader = new FileReader();
@@ -276,7 +281,7 @@ class BlockAlgorithm extends React.Component {
                 var contents = reader.result;
 
                 let algorithm = JSON.parse(contents);
-                
+
                 let algorithmInformation = algorithm.algorithmInformation;
                 let sequenceBlocks = algorithm.sequenceBlocks;
                 let availableBlocks = algorithm.availableBlocks;

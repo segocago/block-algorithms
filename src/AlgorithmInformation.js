@@ -23,7 +23,6 @@ const styles = {
         borderColor: "black",
         borderStyle: "solid",
         textAlign: "left",
-
     },
     input: {
         display: 'none',
@@ -44,7 +43,11 @@ const styles = {
     },
     multiLineTextArea: {
         whiteSpace: "pre-wrap"
-    }
+    },
+    outputTopContainer: {
+        justifyContent: "center"
+    },
+
 };
 
 class AlgorithmInformation extends React.Component {
@@ -62,12 +65,17 @@ class AlgorithmInformation extends React.Component {
         if (typeof (outputMessages) === "undefined") {
             return;
         }
-        let selection = this.state.highlightedSelection;
+        //let selection = this.state.highlightedSelection;
+        let variables = this.state.variables;
         let searchWords = [];
-        if(selection){
-            searchWords.push(selection)
+        if (variables) {
+            variables = variables.split(",");
+            for (let i = 0; i < variables.length; i++) {
+                searchWords.push(variables[i])
+            }
+
         }
-        
+
         for (let i = 0; i < outputMessages.length; i++) {
 
             let message = outputMessages[i].message;
@@ -90,14 +98,20 @@ class AlgorithmInformation extends React.Component {
         this.setState({ expanded: !isExpanded });
     };
 
+    /*
     onOutputMouseUp() {
         let selected = window.getSelection().toString();
         if (selected.length > 0) {
             this.setState({ highlightedSelection: selected })
-        }else {
+        } else {
             this.setState({ highlightedSelection: null })
 
         }
+    }
+    */
+
+    onVariablesChanged(event) {
+        this.setState({ variables: event.target.value });
     }
 
     render() {
@@ -115,10 +129,29 @@ class AlgorithmInformation extends React.Component {
                     </CardContent>
                 </Card>
                 <Card className={classes.card}>
-                    <CardContent onMouseUp={this.onOutputMouseUp.bind(this)}>
-                        <Typography variant="h5" color="textPrimary" component="p" display="block" >
-                            Output
-                        </Typography>
+                    <CardContent >
+                        <Container className={classes.outputTopContainer}>
+                            <Row>
+                                <Col>
+                                    <Typography variant="h5" color="textPrimary" component="p" display="block" >
+                                        Output
+                                    </Typography>
+                                </Col>
+                                <Col>
+                                    <TextField
+                                        value={this.state.variables}
+                                        required
+                                        id="outlined-basic"
+                                        label="Variables"
+                                        helperText ="Coma seperate variable names. E.g area,radius"
+                                        className={classes.textField}
+                                        margin="normal"
+                                        variant="outlined"
+                                        onChange={this.onVariablesChanged.bind(this)}
+                                    />
+                                </Col>
+                            </Row>
+                        </Container>
                         <Typography align="left" variant="h6" color="textSecondary" component="p" display="block" >
                             <div className={classes.multiLineTextArea} >
                                 {this.createOutputMessages.bind(this)()}
