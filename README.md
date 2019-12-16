@@ -4,9 +4,9 @@ Aim of the application is to provide a tool to develop drag-drop algorithms for 
 ## Live Website
 https://gifted-kepler-d8bba3.netlify.com/
 
-## Available Scripts
+## Components
 
-In the project directory, you can run:
+![Components](component_diagram.png)   
 
 ### `yarn start`
 
